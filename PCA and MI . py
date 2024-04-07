@@ -1,0 +1,28 @@
+X = df2.iloc[:, :-1]
+y = df2.iloc[:, -1]
+
+# Perform PCA
+pca = PCA(n_components=2)
+X_pca = pca.fit_transform(X)
+
+# Visualize PCA
+plt.figure(figsize=(8, 6))
+plt.scatter(X_pca[:, 0], X_pca[:, 1], c=y, cmap='viridis')  # Color points based on class labels
+plt.title('PCA Plot')
+plt.xlabel('Principal Component 1')
+plt.ylabel('Principal Component 2')
+plt.colorbar(label='Class')
+plt.grid(True)
+plt.show() 
+
+mutual_info = mutual_info_classif(X, y)
+
+# Create a bar plot for mutual information
+plt.figure(figsize=(10, 6))
+plt.bar(range(len(mutual_info)), mutual_info, color='skyblue', alpha=0.7)
+plt.xticks(range(len(mutual_info)), range(len(mutual_info)))  # Use numerical indices as x-axis labels
+plt.title('Mutual Information between Features and Target')
+plt.xlabel('Features')
+plt.ylabel('Mutual Information')
+plt.tight_layout()
+plt.show()
